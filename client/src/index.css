@@ -1,0 +1,341 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary gradients - simplified for Cata rebrand */
+  --gradient-primary: linear-gradient(180deg, #0f0a1a 0%, #1a0f24 100%);
+  --gradient-card: linear-gradient(135deg, rgba(88, 28, 135, 0.15) 0%, rgba(30, 27, 75, 0.1) 100%);
+  --gradient-button: linear-gradient(135deg, #7c3aed 0%, #581c87 100%);
+
+  /* Glassmorphism - reduced blur for better performance */
+  --glass-bg: rgba(88, 28, 135, 0.1);
+  --glass-border: rgba(147, 51, 234, 0.15);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+
+  /* Semantic colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Text hierarchy - off-white for better readability */
+  --text-primary: #E8E6ED;
+  --text-secondary: rgba(232, 230, 237, 0.8);
+  --text-tertiary: rgba(232, 230, 237, 0.6);
+  --text-disabled: rgba(232, 230, 237, 0.4);
+
+  /* Dark theme colors in HSL */
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 271 81% 56%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 271 81% 56%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background: var(--gradient-primary);
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+  
+  .bg-gradient-button {
+    background: var(--gradient-button);
+  }
+  
+  .bg-glass-bg {
+    background: var(--glass-bg);
+  }
+  
+  .border-glass-border {
+    border-color: var(--glass-border);
+  }
+  
+  .glass-shadow {
+    box-shadow: var(--glass-shadow);
+  }
+}
+
+/* Mobile-First Responsive Design */
+@media (max-width: 640px) {
+  .mobile-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  .wine-actions-mobile {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+  
+  .wine-actions-mobile button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  .tab-container {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .tab-container::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .touch-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Custom slider styling */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background: var(--gradient-button);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background: var(--gradient-button);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Glassmorphism enhancements - reduced blur for better mobile performance */
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+}
+
+/* Reduced blur on mobile for performance */
+@media (max-width: 768px) {
+  .backdrop-blur-xl {
+    backdrop-filter: blur(12px);
+  }
+  .backdrop-blur-md {
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* Accessibility: respect user preferences for reduced transparency */
+@media (prefers-reduced-transparency: reduce) {
+  .backdrop-blur-xl,
+  .backdrop-blur-md {
+    backdrop-filter: none;
+    background: rgba(15, 10, 26, 0.95);
+  }
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Enhanced focus states */
+input:focus, textarea:focus, button:focus {
+  transform: translateY(-1px);
+}
+
+/* Wine glass animation */
+@keyframes wine-glass {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(5deg) scale(1.05); }
+  75% { transform: rotate(-5deg) scale(1.05); }
+}
+
+.animate-wine-glass {
+  animation: wine-glass 4s ease-in-out infinite;
+}
+
+/* Shimmer effect for action cards */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.card-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.06) 45%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.06) 55%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  animation: shimmer 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Dynamic viewport height support for mobile */
+.h-dynamic-screen {
+  height: 100vh; /* Fallback for older browsers */
+  height: var(--app-height, 100dvh); /* Use our JS-calculated value first, then dvh as fallback */
+}
+
+/* Safe area padding for iOS devices */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.pt-safe {
+  padding-top: max(1.5rem, env(safe-area-inset-top));
+}
+
+/* Prevent mobile overflow */
+.mobile-no-overflow {
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile-optimized transitions */
+@media (max-width: 768px) {
+  /* Ensure transition slides fit within viewport */
+  .transition-slide {
+    max-height: 100vh;
+    max-height: 100dvh;
+    overflow-y: auto;
+  }
+  
+  /* Reduce padding on mobile for more content space */
+  .mobile-padding {
+    padding: 1rem;
+  }
+  
+  /* Optimize font sizes for mobile readability */
+  .mobile-text-optimize {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    line-height: 1.6;
+  }
+  
+  /* Better touch targets */
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Mobile-specific transition animations */
+  .mobile-transition-content {
+    animation-duration: 0.3s !important; /* Faster animations on mobile */
+  }
+  
+  /* Responsive text scaling for transitions */
+  .mobile-heading {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+  
+  .mobile-subheading {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+  
+  .mobile-body {
+    font-size: clamp(0.875rem, 3vw, 1.125rem);
+  }
+  
+  /* Optimize image sizes for mobile */
+  .mobile-wine-image {
+    max-width: 60vw;
+    max-height: 40vh;
+  }
+  
+  /* Reduce motion for better performance */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* CSS custom properties for dynamic scaling */
+:root {
+  --mobile-scale: clamp(0.75, 2vw, 1);
+  --transition-padding: clamp(1rem, 4vw, 2rem);
+  --wine-image-size: clamp(8rem, 20vw, 12rem);
+  --button-padding-x: clamp(0.75rem, 3vw, 1.5rem);
+  --button-padding-y: clamp(0.5rem, 2vw, 1rem);
+}
+
+@media (max-width: 400px) {
+  .hide-on-xs {
+    display: none !important;
+  }
+}
+
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #2e5270;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 40, 218, 0.89);
+  border-radius: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
